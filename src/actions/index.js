@@ -84,7 +84,7 @@ export async function loginUserAction(formData) {
       expiresIn: "1d",
     });
 
-    const getCookies = cookies();
+    const getCookies = await cookies();
     getCookies.set("token", token);
 
     return {
@@ -101,14 +101,14 @@ export async function loginUserAction(formData) {
 }
 
 export async function logoutAction() {
-  const getCookies = cookies();
+  const getCookies = await cookies();
   getCookies.set("token", "");
 }
 
 export async function fetchAuthUserAction() {
   await connectToDB();
   try {
-    const getCookies = cookies();
+    const getCookies = await cookies();
     const token = getCookies.get("token")?.value || "";
     if (token === "") {
       return {
